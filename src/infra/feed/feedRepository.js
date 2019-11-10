@@ -17,13 +17,12 @@ export default ({ feedApiService }) => ({
     const { data } = await feedApiService.get("gifs/search", params);
 
     return {
-      ...data,
-      gifs: data.gifs.map(this.coerceGif)
+      gifs: data.map(this.coerceGif)
     };
   },
   coerceGif(rawGif) {
     return {
-      ...rawGif
+      src: rawGif.images.original.url
     };
   }
 });

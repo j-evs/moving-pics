@@ -1,0 +1,8 @@
+.controls {
+  display: flex;
+}
+
+.gif {
+  width: 250px;
+  height: auto;
+}

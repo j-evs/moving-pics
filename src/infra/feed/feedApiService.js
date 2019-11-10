@@ -11,6 +11,5 @@ const createUrl = (url, params) => {
   return `${API_URL}${url}?${searchParams.toString()}`;
 };
 
-export const get = (url, params) => {
-  return fetch(createUrl(url, params));
-};
+export const get = (url, params) =>
+  fetch(createUrl(url, params)).then(res => res.json());
