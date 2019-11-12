@@ -5,6 +5,8 @@ import { Provider as StyletronProvider } from "styletron-react";
 import { LightTheme, BaseProvider } from "baseui";
 import Router from "./Router";
 
+import "./App.css";
+
 const engine = new Styletron();
 
 const App = props => {

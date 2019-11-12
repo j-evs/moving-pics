@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import Feed from "./feed/Feed";
+import FeedPage from "./feed/FeedPage";
 
 const Router = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact render={props => <Feed {...props} />} />
+      <Route path="/" exact render={props => <FeedPage {...props} />} />
       <Redirect to="/" />
     </Switch>
   </BrowserRouter>

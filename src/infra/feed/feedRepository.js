@@ -2,7 +2,7 @@ export default ({ feedApiService }) => ({
   async getFeed({
     searchQuery,
     offset = 0,
-    limit = 5,
+    limit = 10,
     rating = "G",
     lang = "en"
   }) {
@@ -22,7 +22,9 @@ export default ({ feedApiService }) => ({
   },
   coerceGif(rawGif) {
     return {
-      src: rawGif.images.original.url
+      src: rawGif.images.original.url,
+      title: rawGif.title,
+      height: rawGif.images.original.height
     };
   }
 });
