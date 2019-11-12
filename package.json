@@ -38,6 +38,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^9.3.2",
     "redux-devtools-extension": "^2.13.8"
   }
 }

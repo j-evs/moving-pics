@@ -1,7 +1,6 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { VariableSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
-import { useStyletron } from "baseui";
 
 import FeedGif from "./FeedGif";
 
@@ -9,8 +8,6 @@ import { GifsType } from "../../domain/feed";
 import { func } from "prop-types";
 
 const FeedList = ({ gifs, updateFeed, isLoading, searchQuery, ...rest }) => {
-  const [css] = useStyletron();
-
   const Row = ({ index, style, data }) => {
     return (
       <div style={style}>

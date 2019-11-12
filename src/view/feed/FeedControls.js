@@ -50,6 +50,7 @@ const FeedContols = ({ searchQuery, handleSearchQueryChange }) => {
         onKeyPress={handleKeyPress}
         placeholder="Which gifs do you want to find?"
         error={inputError}
+        data-testid="feed-controls-input"
       />
       <Button onClick={changeSearchQuery}>Search</Button>
     </div>

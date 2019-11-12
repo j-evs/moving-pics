@@ -8,4 +8,4 @@ export const GifType = shape({
   height: string.isRequired
 });
 
-export const GifsType = arrayOf(GifType).isRequired;
+export const GifsType = arrayOf(GifType);

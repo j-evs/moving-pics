@@ -1,4 +1,7 @@
 const API_URL = process.env.REACT_APP_API_URL || "https://api.giphy.com/v1/";
+
+// For demo purposes only.
+// API_KEY shouldn't be exposed to client.
 const API_KEY = "CdRKiCMbTnt9CkZTZ0lGukSczk6iT4Z6";
 
 const createUrl = (url, params) => {
