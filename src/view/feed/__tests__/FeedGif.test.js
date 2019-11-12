@@ -9,7 +9,8 @@ beforeEach(() => {
       gif={{
         src: "http://example.com/",
         title: "example title",
-        height: "100"
+        height: "100",
+        width: "100"
       }}
     />
   );

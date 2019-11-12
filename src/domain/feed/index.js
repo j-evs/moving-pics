@@ -5,7 +5,8 @@ import { string, arrayOf, shape } from "prop-types";
 export const GifType = shape({
   src: string.isRequired,
   title: string.isRequired,
-  height: string.isRequired
+  height: string.isRequired,
+  width: string.isRequired
 });
 
 export const GifsType = arrayOf(GifType);

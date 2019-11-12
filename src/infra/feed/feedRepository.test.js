@@ -10,7 +10,8 @@ describe("Infra :: Feed :: feedRepository", () => {
         images: {
           original: {
             url: "http://example.com",
-            height: "100"
+            height: "100",
+            width: "100"
           }
         },
         title: "some title"
@@ -57,7 +58,12 @@ describe("Infra :: Feed :: feedRepository", () => {
           })
         ).resolves.toEqual({
           gifs: [
-            { height: "100", src: "http://example.com", title: "some title" }
+            {
+              height: "100",
+              width: "100",
+              src: "http://example.com",
+              title: "some title"
+            }
           ]
         });
       });

@@ -24,7 +24,8 @@ export default ({ feedApiService }) => ({
     return {
       src: rawGif.images.original.url,
       title: rawGif.title,
-      height: rawGif.images.original.height
+      height: rawGif.images.original.height,
+      width: rawGif.images.original.width
     };
   }
 });
