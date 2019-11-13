@@ -106,3 +106,5 @@ No "product" tools have been added, but production-ready solution would definite
 Also should consider SEO if we want organic-traffic. This could be done for example by introducing [Lighthouse CI](<[https://github.com/GoogleChrome/lighthouse-ci](https://github.com/GoogleChrome/lighthouse-ci)>) --seo check as a part of delivery/deploy pipeline
 
 ### Deployment
+
+App is deployed at https://hardcore-brahmagupta-4cbe85.netlify.com/

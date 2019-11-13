@@ -51,6 +51,8 @@ const FeedContols = ({ searchQuery, handleSearchQueryChange }) => {
         placeholder="Which gifs do you want to find?"
         error={inputError}
         data-testid="feed-controls-input"
+        name="search gifs"
+        aria-label="search gifs"
       />
       <Button onClick={changeSearchQuery}>Search</Button>
     </div>
