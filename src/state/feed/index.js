@@ -1,8 +1,17 @@
 import { FEED } from "../actionTypes";
+import { oneOf } from "prop-types";
+
+export const feedStatuses = {
+  INIT: "INIT",
+  LOADING: "LOADING",
+  SUCCESS: "SUCCESS",
+  ERROR: "ERROR"
+};
+export const FeedStatusesType = oneOf(Object.values(feedStatuses));
 
 const initialState = {
   gifs: [],
-  isLoading: false,
+  status: feedStatuses.INIT,
   error: null
 };
 
@@ -11,27 +20,27 @@ export const feedReducer = (state = initialState, action) => {
     case FEED.LOAD_GIFS_REQUEST:
       return {
         ...state,
-        isLoading: true,
+        status: feedStatuses.LOADING,
         error: null
       };
 
     case FEED.LOAD_GIFS_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        status: feedStatuses.SUCCESS,
         gifs: action.payload.gifs
       };
 
     case FEED.UPDATE_GIFS_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        status: feedStatuses.SUCCESS,
         gifs: [...state.gifs, ...action.payload.gifs]
       };
     case FEED.LOAD_GIFS_ERROR:
       return {
         ...state,
-        isLoading: false,
+        status: feedStatuses.ERROR,
         error: action.error
       };
 

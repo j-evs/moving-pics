@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { loadFeed, updateFeed } from "../../state/feed";
+import {
+  loadFeed,
+  updateFeed,
+  feedStatuses,
+  FeedStatusesType
+} from "../../state/feed";
 import { updateURL, getParam } from "../Router";
+import { GifsType } from "../../domain/feed";
 
 import FeedControls from "./FeedControls";
 import FeedList from "./FeedList";
 import FeedSpinner from "./FeedSpinner";
 import FeedError from "./FeedError";
+import FeedStatusMessage from "./FeedStatusMessage";
 
-import { GifsType } from "../../domain/feed";
-import { string, func, bool, shape } from "prop-types";
 import { useStyletron } from "baseui";
+import { string, func, shape } from "prop-types";
 
 const SEARCH_QUERY_PARAM = "search";
 
@@ -29,6 +35,39 @@ const FeedPage = ({
       loadFeed(searchQuery);
     }
   }, [searchQuery, loadFeed]);
+
+  const isFeedLoading = feed.status === feedStatuses.isLoading;
+  const isFeedEmpty = feed.gifs.length === 0;
+  const renderFeed = () => {
+    if (isFeedLoading && isFeedEmpty) {
+      return <FeedSpinner />;
+    }
+
+    if (feed.error) {
+      return <FeedError>Something went wrong: {feed.error}</FeedError>;
+    }
+
+    if (feed.status === feedStatuses.INIT) {
+      return <FeedStatusMessage>Search above for cool gifs!</FeedStatusMessage>;
+    }
+
+    if (isFeedEmpty && feed.status === feedStatuses.SUCCESS) {
+      return (
+        <FeedStatusMessage>Sorry, couldn't find anything</FeedStatusMessage>
+      );
+    }
+
+    return (
+      <FeedList
+        gifs={feed.gifs}
+        updateFeed={() => updateFeed(searchQuery)}
+        searchQuery={searchQuery}
+        isLoading={isFeedLoading}
+        className={css({ flexGrow: 1 })}
+      />
+    );
+  };
+
   return (
     <div
       className={css({
@@ -41,15 +80,7 @@ const FeedPage = ({
         searchQuery={searchQuery}
         handleSearchQueryChange={updateSearchQuery}
       />
-      <FeedList
-        gifs={feed.gifs}
-        updateFeed={() => updateFeed(searchQuery)}
-        searchQuery={searchQuery}
-        isLoading={feed.isLoading}
-        className={css({ flexGrow: 1 })}
-      />
-      {feed.isLoading && <FeedSpinner />}
-      {feed.error && <FeedError>Something went wrong: {feed.error}</FeedError>}
+      {renderFeed()}
     </div>
   );
 };
@@ -73,8 +104,8 @@ FeedPage.propTypes = {
   updateSearchQuery: func,
   loadFeed: func,
   feed: shape({
-    gifs: GifsType,
-    isLoading: bool,
+    gifs: GifsType.isRequired,
+    status: FeedStatusesType.isRequired,
     error: string
   })
 };

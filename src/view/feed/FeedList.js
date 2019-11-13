@@ -76,8 +76,8 @@ const FeedList = ({ gifs, updateFeed, isLoading, searchQuery, ...rest }) => {
 };
 
 FeedList.propTypes = {
-  gifs: GifsType,
-  updateFeed: func
+  gifs: GifsType.isRequired,
+  updateFeed: func.isRequired
 };
 
 export default FeedList;
