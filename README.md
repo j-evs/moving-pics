@@ -6,7 +6,7 @@ Install dependencies via yarn or npm:
 
 ## Scripts
 
-This project was built with [Create React App](https://create-react-app.dev/](https://create-react-app.dev/), so the usual CRA scripts work:
+This project was built with [Create React App](https://create-react-app.dev/), so the usual CRA scripts work:
 
 ###### `yarn start`
 
@@ -85,7 +85,7 @@ Also should consider to adopt a micro-frontend approach from the get-go if we pl
 
 - Toggling between 1-3 column view not done due to the time constraints :(
 
-- Suggestion: [manage redux boilerplate](https://redux.js.org/recipes/reducing-boilerplate]
+- Suggestion: [manage redux boilerplate](https://redux.js.org/recipes/reducing-boilerplate)
 
 - Suggestion: track individual gif loading status & show a placeholder instead of blank box
 
@@ -103,7 +103,7 @@ I haven't added any integration/e2e tests given the time constraints, because th
 
 No "product" tools have been added, but production-ready solution would definitely include some sort of analytics tool to track user behavior for insights, A/B testing etc.
 
-Also should consider SEO if we want organic-traffic. This could be done for example by introducing [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci] seo check as a part of delivery/deploy pipeline
+Also should consider SEO if we want organic-traffic. This could be done for example by introducing [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci) seo check as a part of delivery/deploy pipeline
 
 ### Deployment
 
