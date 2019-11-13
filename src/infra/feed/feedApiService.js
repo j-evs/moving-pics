@@ -15,4 +15,11 @@ const createUrl = (url, params) => {
 };
 
 export const get = (url, params) =>
-  fetch(createUrl(url, params)).then(res => res.json());
+  fetch(createUrl(url, params))
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(res.statusText);
+      }
+      return res;
+    })
+    .then(res => res.json());
