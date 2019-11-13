@@ -6,7 +6,6 @@ import {
   feedStatuses,
   FeedStatusesType
 } from "../../state/feed";
-import { updateURL, getParam } from "../Router";
 import { GifsType } from "../../domain/feed";
 
 import FeedControls from "./FeedControls";
@@ -16,6 +15,7 @@ import FeedError from "./FeedError";
 import FeedStatusMessage from "./FeedStatusMessage";
 
 import { useStyletron } from "baseui";
+import { updateURL, getParam } from "../Router";
 import { string, func, shape } from "prop-types";
 
 const SEARCH_QUERY_PARAM = "search";

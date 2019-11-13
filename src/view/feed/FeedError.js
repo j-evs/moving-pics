@@ -1,40 +1,22 @@
-import * as React from "react";
+import React from "react";
+
 import { Toast, KIND } from "baseui/toast";
 import { useStyletron } from "baseui";
 
-export default ({ children }) => {
+import { node } from "prop-types";
+
+const FeedError = ({ children }) => {
   const [css] = useStyletron();
 
   return (
     <div className={css({ position: "fixed", bottom: 0, right: "20px" })}>
-      <Toast
-        overrides={{
-          ToastInnerContainer: {
-            style: ({ $theme }) => {
-              return {
-                backgroundColor: "black"
-              };
-            }
-          },
-          ToastBody: {
-            style: ({ $theme }) => {
-              return {
-                backgroundColor: "black"
-              };
-            }
-          },
-          Root: {
-            style: ({ $theme }) => {
-              return {
-                backgroundColor: "black"
-              };
-            }
-          }
-        }}
-        kind={KIND.negative}
-      >
-        {children}
-      </Toast>
+      <Toast kind={KIND.negative}>{children}</Toast>
     </div>
   );
 };
+
+FeedError.propTypes = {
+  children: node.isRequired
+};
+
+export default FeedError;

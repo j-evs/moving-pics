@@ -1,19 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { VariableSizeList } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
-import { useWindowSize } from "../helpers";
+import { GifsType } from "../../domain/feed";
+
 import FeedGif from "./FeedGif";
 
-import { GifsType } from "../../domain/feed";
-import { func } from "prop-types";
-
-const Row = ({ index, style, data }) => {
-  return (
-    <div style={style}>
-      <FeedGif gif={data[index]} />
-    </div>
-  );
-};
+import { useWindowSize } from "../helpers";
+import { func, number, object, array } from "prop-types";
 
 const FeedList = ({ gifs, updateFeed, isLoading, searchQuery, ...rest }) => {
   const { width: windowWidth } = useWindowSize();
@@ -67,12 +60,23 @@ const FeedList = ({ gifs, updateFeed, isLoading, searchQuery, ...rest }) => {
             onItemsRendered={handleRenderedItemsChange}
             ref={listRef}
           >
-            {Row}
+            {FeedListRow}
           </VariableSizeList>
         )}
       </AutoSizer>
     </div>
   );
+};
+
+const FeedListRow = ({ index, style, data }) => (
+  <div style={style}>
+    <FeedGif gif={data[index]} />
+  </div>
+);
+FeedListRow.propTypes = {
+  index: number.isRequired,
+  style: object.isRequired,
+  data: array.isRequired
 };
 
 FeedList.propTypes = {

@@ -1,6 +1,7 @@
 import React from "react";
-import { Spinner } from "baseui/spinner";
+
 import { useStyletron } from "baseui";
+import { Spinner } from "baseui/spinner";
 
 const FeedSpinner = () => {
   const [css] = useStyletron();
