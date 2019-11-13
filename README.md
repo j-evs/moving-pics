@@ -1,68 +1,108 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation
 
-## Available Scripts
+Install dependencies via yarn or npm:
 
-In the project directory, you can run:
+###### `yarn install`
 
-### `yarn start`
+## Scripts
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+This project was built with [Create React App](<[https://create-react-app.dev/](https://create-react-app.dev/)>), so the usual CRA scripts work:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+###### `yarn start`
 
-### `yarn test`
+Runs the app in the development mode.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+###### `yarn test`
 
-### `yarn build`
+Launches the test runner in the interactive watch mode
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+###### `yarn build`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Builds the app for production to the `build` folder.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+###### `yarn eject`
 
-### `yarn eject`
+Removes the single build dependency from the project and copies all the configuration files and the transitive dependencies into the project. (Should do this for a more complicated build process, which almost always happens with complex apps)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Docs
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### TLDR:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- used gif file extension to match the problem statement. For production environment should use MPEG4 + `<video>` for performance
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- used `react-window` for infinite list virtualization
 
-## Learn More
+- implemented a sort of ddd style architecture
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Decisions, trade-offs & improvements suggestions
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### General
 
-### Code Splitting
+A lot of stuff I did is definitely overkill for an app with one use-case. However, the tools and approach should make some sense if one would plan to add new features & scale this type of app.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+##### UI architecture
 
-### Analyzing the Bundle Size
+I've went for ddd-style for ui architecture because it proved to be highly maintainable and testable. Also it is easy to reason about where to add code for new features.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+##### Rendering approach
 
-### Making a Progressive Web App
+I chose SPA given the time constraints. For production it might be beneficial to adopt SSR + rehydration:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+1. If a user visits an url with a search query param we would save them a RTT for the initial view data fetch
 
-### Advanced Configuration
+2. Faster First Paint and First Contentful Paint because point #1
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+##### System design
+
+Since we use an api key to fetch data, we should not expose it to client app. That's why there should be a backend app that would store the key, make API calls and proxy the response back to the client.
+
+Having a dedicated server app also could give us benefits like:
+
+- caching hot searches to save API rates(limits)
+
+- acting as a Backend-For-Frontend to abstract away different API calls (if there would be such), exposing a GraphQL endopoint, etc.
+
+- serve data compressed with Brotli
+
+- serve the client only the exact data they need
+
+- SSR
+
+- etc...
+
+Also should consider to adopt a micro-frontend approach from the get-go if we plan our UI to rapidly grow&scale
+
+#### Performance
+
+- Used `react-window` efficiently renders large (infinite) gif list
+
+- Suggestion: Large GIFs are inefficient for delivering animated content. In production should use MPEG4/WebM videos for animations instead of GIF to save network bytes.
+
+- Suggestion: serve content best suited to a user's device and network (i.e. smaller gifs/videos for users withlow-end mobile devices & 3G network) using tools like [this](https://github.com/GoogleChromeLabs/react-adaptive-hooks)
+- Suggestion: introduce performance(JS) budget to improve and sustain user-experience and allow us to meet would-be performance goals.
+
+#### UI
+
+- Toggling between 1-3 column view not done due to the time constraints :(
+
+- Suggestion: [manage redux boilerplate](<[https://redux.js.org/recipes/reducing-boilerplate](https://redux.js.org/recipes/reducing-boilerplate)>)
+
+- Suggestion: track individual gif loading status & show a placeholder instead of blank box
+
+- Suggestion: pick a i18n tool if app would support users within different locales
+
+#### Testing
+
+I've added tests for repository, use-case & some UI-components. I've used [react-testing-library](<[https://github.com/testing-library/react-testing-library](https://github.com/testing-library/react-testing-library)>) for it's intuitive and straight-forward API.
+
+In order for UI to be more tolerable to changes, I would adopt Flow/Typescript for static type checks and focus more on integration and end-to-end tests as they bring much more confidence in our code than unit tests.
+
+I haven't added any integration/e2e tests given the time constraints, because they require some initial boilerplate to get up and running.
+
+#### Product
+
+No "product" tools have been added, but production-ready solution would definitely include some sort of analytics tool to track user behavior for insights, A/B testing etc.
+
+Also should consider SEO if we want organic-traffic. This could be done for example by introducing [Lighthouse CI](<[https://github.com/GoogleChrome/lighthouse-ci](https://github.com/GoogleChrome/lighthouse-ci)>) --seo check as a part of delivery/deploy pipeline
 
 ### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
